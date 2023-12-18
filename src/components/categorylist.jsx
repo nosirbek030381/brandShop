@@ -113,6 +113,7 @@ const CategoryList = () => {
 								height={isMobile ? '140' : '180'}
 								image={item.image}
 								alt='Product'
+								onClick={() => navigate(`/products/${item.id}`)}
 							/>
 							<CardContent>
 								<Box

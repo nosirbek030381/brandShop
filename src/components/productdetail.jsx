@@ -106,7 +106,7 @@ const ProductDetail = () => {
 						>
 							<Box
 								component={'img'}
-								height={isMobile ? '200px' : '340px'} // Responsive change
+								height={isMobile ? '200px' : '450px'} // Responsive change
 								width={'60%'}
 								src={product.image}
 								alt={product.title}
