@@ -22,7 +22,7 @@ const CategoryList = () => {
 	const [page, setPage] = useState(1);
 	const [like, setLike] = useState({});
 	const [likedProducts, setLikedProducts] = useState([]);
-	const itemsPerPage = 6;
+	const itemsPerPage = 9;
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const isMobile = useMediaQuery('(max-width:600px)'); // Adjust the breakpoint as needed
@@ -106,7 +106,7 @@ const CategoryList = () => {
 		<>
 			<Box display='flex' flexWrap='wrap' gap={2} justifyContent='center' mt={isMobile ? 2 : 5}>
 				{displayedProducts.map(item => (
-					<Card sx={{ maxWidth: isMobile ? '100%' : 330 }} key={item.id}>
+					<Card sx={{ maxWidth: isMobile ? '100%' : 350 }} key={item.id}>
 						<CardActionArea>
 							<CardMedia
 								component='img'
@@ -143,6 +143,7 @@ const CategoryList = () => {
 										aria-label='favorite'
 										onClick={() => likeButton(item.id)}
 										color={like[item.id] ? 'danger' : 'default'}
+										value={likedProducts}
 									>
 										{like[item.id] ? <Favorite /> : <FavoriteBorder />}
 									</IconButton>

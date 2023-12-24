@@ -7,20 +7,11 @@ import {
 	ListItemText,
 	useMediaQuery,
 } from '@mui/material';
+import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const categories = [
-	'Mobile accessory',
-	'Electronics',
-	'Smartphones',
-	'Modern tech',
-	'Clothes',
-	'Books',
-];
-
-const brands = ['Apple', 'Samsung', 'Xiaomi', 'Oneplus'];
-const feature = ['Metallic', 'Plastic cover', '8GB Ram', 'Super power'];
+const categories = ['electronics', 'jewelery', "men's clothing", "women's clothing"];
 const SEE_ALL_CATEGORY = 'See All';
 
 export default function NestedList() {
@@ -28,6 +19,8 @@ export default function NestedList() {
 	const [category, setCategory] = useState(true);
 	const [brand, setBrand] = useState(false);
 	const [features, setFeatures] = useState(false);
+	const [selectedFilter, setSelectedFilter] = useState('');
+	const [selectedBrands, setSelectedBrands] = useState([]);
 
 	const handleClickCategory = () => {
 		setCategory(prevState => !prevState);
@@ -39,6 +32,16 @@ export default function NestedList() {
 
 	const handleClickFeatures = () => {
 		setFeatures(prevState => !prevState);
+	};
+
+	const handleFilterChange = async filter => {
+		try {
+			const res = await axios.get(`https://fakestoreapi.com/products/category/${filter}`);
+			setSelectedFilter(res.data);
+			console.log(res.data);
+		} catch (error) {
+			console.error('Error fetching product data:', error);
+		}
 	};
 
 	return (
@@ -75,9 +78,13 @@ export default function NestedList() {
 				</ListItemButton>
 				<Collapse in={brand} timeout='auto' unmountOnExit>
 					<List component='div' disablePadding>
-						{brands.map(brand => (
-							<ListItemButton key={brand}>
-								{isMobile && <Checkbox />}
+						{categories.map(brand => (
+							<ListItemButton key={brand} onChange={selectedFilter}>
+								{' '}
+								<Checkbox
+									checked={selectedBrands.includes(brand)}
+									onChange={() => handleFilterChange(brand)}
+								/>
 								<ListItemText primary={brand} />
 							</ListItemButton>
 						))}
@@ -92,9 +99,9 @@ export default function NestedList() {
 				</ListItemButton>
 				<Collapse in={features} timeout='auto' unmountOnExit>
 					<List component='div' disablePadding>
-						{feature.map(features => (
-							<ListItemButton key={features}>
-								{isMobile && <Checkbox />}
+						{categories.map(features => (
+							<ListItemButton key={features} onChange={selectedFilter}>
+								<Checkbox />
 								<ListItemText primary={features} />
 							</ListItemButton>
 						))}

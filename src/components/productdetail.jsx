@@ -123,6 +123,7 @@ const ProductDetail = () => {
 											aria-label='favorite'
 											onClick={() => likeButton(product.id)}
 											color={like[product.id] ? 'danger' : 'default'}
+											value={likedProducts}
 										>
 											{like[product.id] ? <Favorite /> : <FavoriteBorder />}{' '}
 										</IconButton>
