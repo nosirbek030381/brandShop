@@ -9,6 +9,7 @@ const Navbar = () => {
 
 	const orderClick = () => {
 		navigate('/orders');
+		document.title = 'Orders';
 		window.location.reload();
 	};
 
